@@ -11,7 +11,7 @@ public class TasksTest {
             "true,simpletask",
             "true,Д",
             "true,0",
-//            "true,",
+            "true,''",
             "true,!"
     })
     public void shouldSimpleTaskMatchesQuery(boolean expected, String query) {
@@ -19,15 +19,6 @@ public class TasksTest {
 
         Assertions.assertEquals(expected, simpleTask.matches(query));
     }
-
-//    @Test
-//    public void shouldSimpleTaskMatchesQueryTest() {
-//        SimpleTask simpleTask = new SimpleTask(1, "Добавить задачу SimpleTask 15.06!");
-//
-//        boolean expected = true;
-//        boolean actuale = simpleTask.matches("");
-//        Assertions.assertEquals(expected, actuale);
-//    }
 
     @Test
     public void shouldSimpleTaskNotMatchesQuery() {
@@ -45,6 +36,7 @@ public class TasksTest {
             "true,epic",
             "true,p",
             "true,1",
+            "true,''",
             "true,!"
     })
     public void shouldEpicTaskMatchesQuery(boolean expected, String query) {
@@ -69,6 +61,7 @@ public class TasksTest {
             "true,обсуждение",
             "true,о",
             "true,9",
+            "true,''",
             "true,!"
     })
     public void shouldMeetingMatchesQuery(boolean expected, String query) {
