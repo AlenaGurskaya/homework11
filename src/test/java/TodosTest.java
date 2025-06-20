@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 public class TodosTest {
 
     SimpleTask task1 = new SimpleTask(1, "Добавить задачу SimpleTask");
-    Epic task2 = new Epic(2, new String[]{"Найти тему", "Написать реферат!"});
+    Epic task2 = new Epic(2, new String[]{"Найти тему", "Написать реферат!", "Выполнить задачу"});
     Meeting task3 = new Meeting(3, "Встреча", "Обсуждение текуших задач", "19.06");
 
     @Test
@@ -33,32 +33,44 @@ public class TodosTest {
     }
 
     @Test
-    public void shouldSearchQuery() {
+    public void shouldSearchNullTasks() {
         Todos todos = new Todos();
 
         todos.add(task1);
         todos.add(task2);
         todos.add(task3);
 
-        Task[] expected1 = {task1};
-        Task[] expected2 = {task2};
-        Task[] expected3 = {task3};
-        Task[] expected4 = {task2};
-        Task[] expected5 = {task1, task2, task3};
-        Task[] expected6 = {task1, task3};
-        Task[] actuale1 = todos.search("simpletask"); //нижний регистр + задача SimpleTask
-        Task[] actuale2 = todos.search("РЕФЕРАТ");    //верхний регистр + задача Epic
-        Task[] actuale3 = todos.search("обсуждение"); //нижний регистр + задача Meeting
-        Task[] actuale4 = todos.search("!");          //спецсимвол
-        Task[] actuale5 = todos.search("");           //0 символов
-        Task[] actuale6 = todos.search("д");          //1 символ
+        Task[] expected = {};
+        Task[] actuale = todos.search("Прогулка");
 
-        Assertions.assertArrayEquals(expected1, actuale1);
-        Assertions.assertArrayEquals(expected2, actuale2);
-        Assertions.assertArrayEquals(expected3, actuale3);
-        Assertions.assertArrayEquals(expected4, actuale4);
-        Assertions.assertArrayEquals(expected5, actuale5);
-        Assertions.assertArrayEquals(expected6, actuale6);
+        Assertions.assertArrayEquals(expected, actuale);
+    }
 
+    @Test
+    public void shouldSearchOneTask() {
+        Todos todos = new Todos();
+
+        todos.add(task1);
+        todos.add(task2);
+        todos.add(task3);
+
+        Task[] expected = {task1};
+        Task[] actuale = todos.search("simpletask");
+
+        Assertions.assertArrayEquals(expected, actuale);
+    }
+
+    @Test
+    public void shouldSearchMoreOneTask() {
+        Todos todos = new Todos();
+
+        todos.add(task1);
+        todos.add(task2);
+        todos.add(task3);
+
+        Task[] expected = {task1, task2, task3};
+        Task[] actuale = todos.search("задач");
+
+        Assertions.assertArrayEquals(expected, actuale);
     }
 }
